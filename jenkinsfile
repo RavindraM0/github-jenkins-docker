@@ -1,29 +1,24 @@
 pipeline {
     agent any
-
     stages {
-        stage('Clone Code') {
+        stage('Clone') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/RavindraM0/github-jenkins-docker.git'
+                git 'https://github.com/RavindraM0/github-jenkins-docker.git'
             }
         }
-
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t windows-cicd-app .'
+                sh 'docker build -t github-jenkins-docker .'
             }
         }
-
-        stage('Run Docker Container') {
+        stage('Run Container') {
             steps {
-                bat '''
-                docker stop windows-app || exit 0
-                docker rm windows-app || exit 0
-                docker run -d -p 5000:5000 --name windows-app windows-cicd-app
+                sh '''
+                docker stop github-jenkins-docker || true
+                docker rm github-jenkins-docker || true
+                docker run -d -p 5000:5000 --name github-jenkins-docker github-jenkins-docker
                 '''
             }
         }
     }
 }
-
