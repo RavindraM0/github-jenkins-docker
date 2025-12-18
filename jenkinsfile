@@ -5,7 +5,7 @@ pipeline {
         stage('Clone Code') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/RavindraM0/github-jenkins-docker'
+                url: 'https://github.com/RavindraM0/github-jenkins-docker.git'
             }
         }
 
@@ -26,3 +26,4 @@ pipeline {
         }
     }
 }
+
